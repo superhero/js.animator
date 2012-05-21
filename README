@@ -1,0 +1,50 @@
+Animator - Javascript
+
+Copyright (c) 2012 Erik Landvall
+
+Dual licensed under the MIT and GPL version 3 licenses.
+
+---
+
+What is this:
+Animator is ment to create smother animations when possible. It uses
+requestAnimationFrame as callback routine.
+
+See:
+http://webstuff.nfshost.com/anim-timing/Overview.html
+https://developer.mozilla.org/en/DOM/window.requestAnimationFrame
+http://dev.chromium.org/developers/design-documents/requestanimationframe-implementation
+
+---
+
+The interface:
+
+Starts the animation loop, if not already running
+void:start
+
+Stops/Pauses the animation loop, if running...
+void:stop
+
+Adds one ore many functions to the queue
+Throws 'Only functions are allowed in the queue'
+param:array|function
+void:addToQueue
+
+Removes a function from the queue
+param:function
+void:removeFromQueue
+
+Removes an item from the queue depending on specified index
+param:function
+void:removeIndexFromQueue
+
+Returns the current queue
+array:getQueue
+
+Clears the old queue and sets a new one
+Throws 'Only functions are allowed in the queue'
+param:array
+void:setQueue 
+
+Unsets the queue
+void:clearQueue
