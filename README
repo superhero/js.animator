@@ -25,6 +25,9 @@ void:start
 Stops/Pauses the animation loop, if running...
 void:stop
 
+Returns if animation loop is currently running
+boolean:isRunning
+
 Adds one ore many functions to the queue
 Throws 'Only functions are allowed in the queue'
 param:array|function
@@ -48,3 +51,12 @@ void:setQueue
 
 Unsets the queue
 void:clearQueue
+
+Returns the specified element we wish to render on
+Element|undefined:getElement
+
+Not required. If specifyed one may optimize the animation
+void:setElement
+
+Removes the specified Element we render in
+void:removeElement

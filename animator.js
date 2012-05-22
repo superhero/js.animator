@@ -18,11 +18,12 @@ var Animator = function()
     // A handler to this instance
     _animator = this,
     
+    // A spcifed element for better optimatation. Usuly the canvas where we are
+    // painting
+    _element = undefined,
+    
     // The queue
     _queue    = [],
-    
-    // The id to the running loop
-    _id       = undefined,
     
     // A flag that determines if the loop is running
     _running  = false,
@@ -30,41 +31,18 @@ var Animator = function()
     /**
      * Handle to the callback-routine
      */
-    _requestAnimationFrame = (function()
+    _requestAnimationFrame = ( function()
     {
         return window.requestAnimationFrame
             || window.webkitRequestAnimationFrame
             || window.mozRequestAnimationFrame
             || window.oRequestAnimationFrame
-            || window.msRequestAnimationFrame;
-    })(),
-    
-    /**
-     * Handle to the cancel part of the callback-routine
-     */
-    _cancelAnimationFrame = (function()
-    {
-        return window.cancelAnimationFrame
-            || window.webkitCancelAnimationFrame
-            || window.webkitCancelRequestAnimationFrame
-            || window.mozCancelRequestAnimationFrame
-            || window.oCancelRequestAnimationFrame
-            || window.msCancelRequestAnimationFrame;
+            || window.msRequestAnimationFrame
+        
+            // Fallback
+            || function( callback )
+            {return window.setTimeout( callback, 1000 / 60 );};
     })();
-
-    // Fallback
-    if( !_requestAnimationFrame || !_cancelAnimationFrame )
-    {
-        _requestAnimationFrame = function( callback )
-        {
-            return window.setTimeout( callback, 1000 / 60 );
-        }
-
-        _cancelAnimationFrame = function( id )
-        {
-            window.clearTimeout( id );
-        }
-    }
     
     /**
      * Starts the animation loop, if not already running
@@ -77,15 +55,21 @@ var Animator = function()
         {
             _running = true;
             
-            (function loop(){
-                _id = _requestAnimationFrame( loop );
-                
-                var queue = _animator.getQueue();
-                
-                for( var i = 0, l = queue.length; i < l; i++ )
-                    queue[ i ]();
+            ( function loop()
+            {
+                if( _running )
+                {
+                    _requestAnimationFrame( loop, _animator.getElement() );
+                    
+                    var queue = _animator.getQueue();
+
+                    for( var i = 0, l = queue.length; i < l; i++ )
+                        queue[ i ]();
+                }
             })();
         }
+        
+        return _animator;
     }
     
     /**
@@ -95,35 +79,42 @@ var Animator = function()
      */
     this.stop = function()
     {
-        if( _running )
-        {
-            _cancelAnimationFrame( _id );
-            _id      = undefined;
-            _running = false;
-        }
+        _running = false;
+        
+        return _animator;
+    }
+    
+    /**
+     * Returns if animation loop is currently running
+     * 
+     * @type boolean
+     */
+    this.isRunning = function()
+    {
+        return _running;
     }
     
     /**
      * Adds one ore many functions to the queue
      * 
-     * @param func array|function - The function, or an array of functions, we
+     * @param fn array|function - The function, or an array of functions, we
      * wish to add to the queue
-     * @exception Only functions are allowed in the queue
+     * @exception 'Only functions are allowed in the queue'
      * @type void
      */
-    this.addToQueue = function( func )
+    this.addToQueue = function( fn )
     {
-        switch( typeof func )
+        switch( typeof fn )
         {
             case 'function':
-                _queue.push( func );
+                _queue.push( fn );
                 break;
                 
             case 'object':
-                if( func instanceof Array )
+                if( fn instanceof Array )
                 {
-                    for( var i = 0, l = func.length; i < l; i++ )
-                        _animator.addToQueue( func[ i ] );
+                    for( var i = 0, l = fn.length; i < l; i++ )
+                        _animator.addToQueue( fn[ i ] );
                     
                     break;
                 }
@@ -131,19 +122,23 @@ var Animator = function()
             default :
                 throw 'Only functions are allowed in the queue';
         }
+        
+        return _animator;
     }
     
     /**
      * Removes a function from the queue
      * 
-     * @param func function - The function we wish to remove from the queue
+     * @param fn function - The function we wish to remove from the queue
      * @type void
      */
-    this.removeFromQueue = function( func )
+    this.removeFromQueue = function( fn )
     {
         for( var i = 0; i < _queue.length; i++ )
-            if( _queue[ i ] == func )
+            if( _queue[ i ] == fn )
                 _animator.removeIndexFromQueue( i-- );
+        
+        return _animator;
     }
     
     /**
@@ -155,6 +150,8 @@ var Animator = function()
     this.removeIndexFromQueue = function( index )
     {
         _queue.splice( Math.floor( index ), 1 );
+        
+        return _animator;
     }
     
     /**
@@ -170,7 +167,7 @@ var Animator = function()
     /**
      * Clears the old queue and sets a new one
      * 
-     * @exception Only functions are allowed in the queue
+     * @exception 'Only functions are allowed in the queue'
      * @param queue array - The queue new queue
      * @type void
      */
@@ -178,6 +175,8 @@ var Animator = function()
     {
         _animator.clearQueue();
         _animator.addToQueue( queue );
+        
+        return _animator;
     }
     
     /**
@@ -188,5 +187,53 @@ var Animator = function()
     this.clearQueue = function()
     {
         _queue = [];
+        
+        return _animator;
+    }
+    
+    /**
+     * Returns the specified element we wish to render on
+     *
+     * @type Element|undefined
+     */
+    this.getElement = function()
+    {
+        return _element;
+    }
+    
+    /**
+     * Not required. If specifyed one may optimize the animation
+     *
+     * @param element Element - [optional] The element we render in
+     * @exception 'Unrecognized element'
+     * @type void
+     */
+    this.setElement = function( element )
+    {
+        if( element == undefined )
+            _animator.removeElement();
+
+        else if( element instanceof Element )
+            _element = element;
+            
+        else if( element instanceof jQuery )
+            _element = element.get( 0 );
+
+        else
+            throw 'Unrecognized element';
+        
+        return _animator;
+    }
+    
+    /**
+     * Removes the specified Element we render in
+     * 
+     * @type void
+     */
+    this.removeElement = function()
+    {
+        _element = undefined;
+        
+        return _animator;
     }
 }
