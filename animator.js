@@ -47,7 +47,7 @@ var Animator = function()
     /**
      * Starts the animation loop, if not already running
      * 
-     * @type void
+     * @type Animator
      */
     this.start = function()
     {
@@ -75,7 +75,7 @@ var Animator = function()
     /**
      * Stops/Pauses the animation loop, if running...
      * 
-     * @type void
+     * @type Animator
      */
     this.stop = function()
     {
@@ -100,21 +100,27 @@ var Animator = function()
      * @param fn array|function - The function, or an array of functions, we
      * wish to add to the queue
      * @exception 'Only functions are allowed in the queue'
-     * @type void
+     * @type int|array
      */
     this.addToQueue = function( fn )
     {
+        var r = undefined;
+        
         switch( typeof fn )
         {
             case 'function':
-                _queue.push( fn );
+                r = _queue.length;
+                _queue[ r ] = fn;
+                
                 break;
                 
             case 'object':
                 if( fn instanceof Array )
                 {
+                    r = [];
+                    
                     for( var i = 0, l = fn.length; i < l; i++ )
-                        _animator.addToQueue( fn[ i ] );
+                        r.push( _animator.addToQueue( fn[ i ] ));
                     
                     break;
                 }
@@ -130,7 +136,7 @@ var Animator = function()
      * Removes a function from the queue
      * 
      * @param fn function - The function we wish to remove from the queue
-     * @type void
+     * @type Animator
      */
     this.removeFromQueue = function( fn )
     {
@@ -145,7 +151,7 @@ var Animator = function()
      * Removes an item from the queue depending on specified index
      * 
      * @param index integer - The index we wish to remove
-     * @type void
+     * @type Animator
      */
     this.removeIndexFromQueue = function( index )
     {
@@ -169,7 +175,7 @@ var Animator = function()
      * 
      * @exception 'Only functions are allowed in the queue'
      * @param queue array - The queue new queue
-     * @type void
+     * @type Animator
      */
     this.setQueue = function( queue )
     {
@@ -182,7 +188,7 @@ var Animator = function()
     /**
      * Unsets the queue
      * 
-     * @type void
+     * @type Animator
      */
     this.clearQueue = function()
     {
@@ -206,7 +212,7 @@ var Animator = function()
      *
      * @param element Element - [optional] The element we render in
      * @exception 'Unrecognized element'
-     * @type void
+     * @type Animator
      */
     this.setElement = function( element )
     {
@@ -228,7 +234,7 @@ var Animator = function()
     /**
      * Removes the specified Element we render in
      * 
-     * @type void
+     * @type Animator
      */
     this.removeElement = function()
     {
