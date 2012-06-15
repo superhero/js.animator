@@ -28,6 +28,9 @@ var Animator = function()
     // A flag that determines if the loop is running
     _running  = false,
     
+    // The routines id
+    _id,
+    
     /**
      * Handle to the callback-routine
      */
@@ -42,6 +45,24 @@ var Animator = function()
             // Fallback
             || function( callback )
             {return window.setTimeout( callback, 1000 / 60 );};
+    })(),
+    
+    /**
+     * Handle to cancel the routine
+     */
+    _cancelAnimationFrame = ( function()
+    {
+        return window.cancelAnimationFrame
+            || window.cancelRequestAnimationFrame
+            || window.webkitCancelAnimationFrame 
+            || window.webkitCancelRequestAnimationFrame 
+            || window.mozCancelAnimationFrame 
+            || window.mozCancelRequestAnimationFrame
+            || window.msCancelAnimationFrame 
+            || window.msCancelRequestAnimationFrame 
+            || window.oCancelAnimationFrame 
+            || window.oCancelRequestAnimationFrame
+            || window.clearTimeout;
     })();
     
     /**
@@ -57,15 +78,12 @@ var Animator = function()
             
             ( function loop()
             {
-                if( _running )
-                {
-                    _requestAnimationFrame( loop, _animator.getElement() );
-                    
-                    var queue = _animator.getQueue();
+                _id = _requestAnimationFrame( loop, _animator.getElement() );
 
-                    for( var i = 0, l = queue.length; i < l; i++ )
-                        queue[ i ]();
-                }
+                var queue = _animator.getQueue();
+
+                for( var i = 0, l = queue.length; i < l; i++ )
+                    queue[ i ]();
             })();
         }
         
@@ -79,6 +97,8 @@ var Animator = function()
      */
     this.stop = function()
     {
+        _cancelAnimationFrame( _id );
+        
         _running = false;
         
         return _animator;
@@ -92,6 +112,16 @@ var Animator = function()
     this.isRunning = function()
     {
         return _running;
+    }
+    
+    /**
+     * Returns if the queue is empty
+     * 
+     * @type boolean
+     */
+    this.isQueueEmpty = function()
+    {
+        return _animator.getQueue().length == 0;
     }
     
     /**
@@ -129,7 +159,7 @@ var Animator = function()
                 throw 'Only functions are allowed in the queue';
         }
         
-        return _animator;
+        return r;
     }
     
     /**
