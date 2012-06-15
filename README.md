@@ -11,9 +11,9 @@ It also has an queue system to prevent multiple simultaneous routines being used
 at the same time.
 
 ### See
-http://webstuff.nfshost.com/anim-timing/Overview.html
-https://developer.mozilla.org/en/DOM/window.requestAnimationFrame
-http://dev.chromium.org/developers/design-documents/requestanimationframe-implementation
+* http://webstuff.nfshost.com/anim-timing/Overview.html
+* https://developer.mozilla.org/en/DOM/window.requestAnimationFrame
+* http://dev.chromium.org/developers/design-documents/requestanimationframe-implementation
 
 ### Animators interface
 
