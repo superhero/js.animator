@@ -1,10 +1,8 @@
 # Animator - Javascript
 
-*Copyright (c) 2012 Erik Landvall
+*Copyright (c) 2012 Erik Landvall*
 
-Dual licensed under the MIT and GPL version 3 licenses.*
-
----
+*Dual licensed under the MIT and GPL version 3 licenses.*
 
 ## What is this
 Animator is ment to create smother animations when possible.
@@ -17,9 +15,7 @@ http://webstuff.nfshost.com/anim-timing/Overview.html
 https://developer.mozilla.org/en/DOM/window.requestAnimationFrame
 http://dev.chromium.org/developers/design-documents/requestanimationframe-implementation
 
----
-
-## Animators interface
+### Animators interface
 
 <table>
 <thead>
