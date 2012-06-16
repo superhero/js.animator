@@ -20,9 +20,9 @@ at the same time.
 <table>
     <thead>
         <tr>
-            <td>**Name**</td>
-            <td>**Return type**</td>
-            <td>**Description**</td>
+            <td><b>Name</b></td>
+            <td><b>Return type</b></td>
+            <td><b>Description</b></td>
         </tr>
     </thead>
 
