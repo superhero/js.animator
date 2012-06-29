@@ -188,7 +188,7 @@ var Animator = function()
             case 'function':
                 for( var id in _queue )
                     if( _queue[ id ] === fn )
-                        _animator.removeFromQueue( id );
+                        _animator.removeFromQueue( parseInt( id ));
                 break;
                 
             default:
