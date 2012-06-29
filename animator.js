@@ -23,10 +23,13 @@ var Animator = function()
     _element = undefined,
     
     // The queue
-    _queue    = [],
+    _queue = {},
+    
+    // The queue id, auto increment
+    _queueId = 0,
     
     // A flag that determines if the loop is running
-    _running  = false,
+    _running = false,
     
     // The routines id
     _id,
@@ -81,9 +84,10 @@ var Animator = function()
                 _id = _requestAnimationFrame( loop, _animator.getElement() );
 
                 var queue = _animator.getQueue();
+                
 
-                for( var i = 0, l = queue.length; i < l; i++ )
-                    queue[ i ]();
+                for( var key in queue )
+                    queue[ key ]();
             })();
         }
         
@@ -121,7 +125,10 @@ var Animator = function()
      */
     this.isQueueEmpty = function()
     {
-        return _animator.getQueue().length == 0;
+        for( var key in _animator.getQueue() )
+            return false;
+        
+        return true;
     }
     
     /**
@@ -134,23 +141,23 @@ var Animator = function()
      */
     this.addToQueue = function( fn )
     {
-        var r = undefined;
+        var id = undefined;
         
         switch( typeof fn )
         {
             case 'function':
-                r = _queue.length;
-                _queue[ r ] = fn;
+                id = ++_queueId;
+                _queue[ id ] = fn;
                 
                 break;
                 
             case 'object':
                 if( fn instanceof Array )
                 {
-                    r = [];
+                    id = [];
                     
                     for( var i = 0, l = fn.length; i < l; i++ )
-                        r.push( _animator.addToQueue( fn[ i ] ));
+                        id.push( _animator.addToQueue( fn[ i ] ));
                     
                     break;
                 }
@@ -159,33 +166,34 @@ var Animator = function()
                 throw 'Only functions are allowed in the queue';
         }
         
-        return r;
+        return id;
     }
     
     /**
      * Removes a function from the queue
      * 
-     * @param fn function - The function we wish to remove from the queue
+     * @param fn function|int - The function or id we wish to remove from the
+     * queue
+     * @exception 'Invalid type'
      * @type Animator
      */
     this.removeFromQueue = function( fn )
     {
-        for( var i = 0; i < _queue.length; i++ )
-            if( _queue[ i ] == fn )
-                _animator.removeIndexFromQueue( i-- );
-        
-        return _animator;
-    }
-    
-    /**
-     * Removes an item from the queue depending on specified index
-     * 
-     * @param index integer - The index we wish to remove
-     * @type Animator
-     */
-    this.removeIndexFromQueue = function( index )
-    {
-        _queue.splice( Math.floor( index ), 1 );
+        switch( typeof fn )
+        {
+            case 'number':
+                delete _queue[ fn ];
+                break;
+              
+            case 'function':
+                for( var id in _queue )
+                    if( _queue[ id ] === fn )
+                        _animator.removeFromQueue( id );
+                break;
+                
+            default:
+                throw 'Invalid type';
+        }
         
         return _animator;
     }
@@ -193,7 +201,7 @@ var Animator = function()
     /**
      * Returns the current queue
      * 
-     * @type array
+     * @type Object
      */
     this.getQueue = function()
     {
@@ -222,7 +230,7 @@ var Animator = function()
      */
     this.clearQueue = function()
     {
-        _queue = [];
+        _queue = {};
         
         return _animator;
     }
