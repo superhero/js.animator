@@ -53,7 +53,8 @@ at the same time.
       <td>getCallback</td>
       <td>function|null</td>
       <td>
-        int|string <b>id</b></i> <br> The id of the callback we wont returned
+        <i>int|string <b>id</b></i>
+        <br> The id of the callback we wont returned
       </td>
       <td>Returns the callback by specified id. If id dosn't exists in queue, null is returned</td>
     </tr>
@@ -62,24 +63,19 @@ at the same time.
       <td>setCallback</td>
       <td>Animator</td>
       <td>
-        <ul>
-          <li>
-            <i>int|string <b>id</b></i> The id of the callback
-          </li>
-
-          <li>
-            <i>function <b>fn</b></i> The callback we wish to set
-          </li>
-
-          <li>
-            <i>int <b>length</b></i> <b>[optional]</b> How many times we wish to call upon the callback
-          </li>
+          <i>int|string <b>id</b></i>
+          <br> The id of the callback
+          <br>
+          <br> <i>function <b>fn</b></i> <br>The callback we wish to set
+          <br>
+          <br> <i>int <b>length</b></i> 
+          <br> <b>[optional]</b> How many times we wish to call upon the callback
         </ul>
       </td>
       <td>
         Sets a callback function with a given id. This can also be used to replace an alredy existing callback.
-   
-        <i><b>Warning!</b> Using this function is not the recomended way to add a function to the queue. Use addCallback for this purpose instead.</i>
+        <br> 
+        <br> <i><b>Warning!</b> Using this function is not the recomended way to add a function to the queue. Use addCallback for this purpose instead.</i>
       </td>
     </tr>
 
@@ -87,15 +83,11 @@ at the same time.
       <td>addCallback</td>
       <td>int|array</td>
       <td>
-        <ul>
-          <li>
-            <i>function|array <b>fn</b></i> The function, or an array of functions, we wish to add to the queue
-          </li>
-
-          <li>
-            <i>int <b>length</b></i> <b>[optional]</b> How many times we wish to call upon the callback
-          </li>
-        </ul>
+        <i>function|array <b>fn</b></i> 
+        <br> The function, or an array of functions, we wish to add to the queue
+        <br> 
+        <br> <i>int <b>length</b></i> 
+        <br> <b>[optional]</b> How many times we wish to call upon the callback
       </td>
       <td>Adds one or many functions to the queue. Returns the generated id or an array of them if multiple callbacks where specicified.</td>
     </tr>
@@ -104,11 +96,8 @@ at the same time.
       <td>removeCallback</td>
       <td>Animator</td>
       <td>
-        <ul>
-          <li>
-            <i>int|function|object <b>fn</b></i> The id, function or instance we wish to remove from the queue
-          </li>
-        </ul>
+        <i>int|function|object <b>fn</b></i> 
+        <br> The id, function or instance we wish to remove from the queue
       </td>
       <td>Removes a callback from the queue.</td>
     </tr>
@@ -124,11 +113,8 @@ at the same time.
       <td>setQueue</td>
       <td>Animator</td>
       <td>
-        <ul>
-          <li>
-            <i>Object <b>queue</b></i> The queue new queue
-          </li>
-        </ul>
+        <i>Object <b>queue</b></i> 
+        <br> The queue new queue
       </td>
       <td>Clears the old queue and sets a new one.</td>
     </tr>
@@ -158,11 +144,8 @@ at the same time.
       <td>setElement</td>
       <td>Animator</td>
       <td>
-        <ul>
-          <li>
-            <i>Element <b>element</b></i> The element to render in
-          </li>
-        <ul>
+        <i>Element <b>element</b></i> 
+        <br> The element to render in
       </td>
       <td><b>Not required!</b> If specifyed one may optimize the animation.</td>
     </tr>
