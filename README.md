@@ -53,7 +53,7 @@ at the same time.
       <td>getCallback</td>
       <td>function|null</td>
       <td>
-        <i>int|string <b>id</b></i>
+        int|string <b>id</b>
         <br> The id of the callback we wont returned
       </td>
       <td>Returns the callback by specified id. If id dosn't exists in queue, null is returned</td>
@@ -63,13 +63,14 @@ at the same time.
       <td>setCallback</td>
       <td>Animator</td>
       <td>
-          <i>int|string <b>id</b></i>
+          int|string <b>id</b>
           <br> The id of the callback
           <br>
-          <br> <i>function <b>fn</b></i> <br>The callback we wish to set
+          <br> function <b>fn</b>
+          <br> The callback we wish to set
           <br>
-          <br> <i>int <b>length</b></i> 
-          <br> <b>[optional]</b> How many times we wish to call upon the callback
+          <br> int <b>length</b> - <i>optional</i>
+          <br> How many times we wish to call upon the callback
         </ul>
       </td>
       <td>
@@ -83,11 +84,11 @@ at the same time.
       <td>addCallback</td>
       <td>int|array</td>
       <td>
-        <i>function|array <b>fn</b></i> 
+        function|array <b>fn</b>
         <br> The function, or an array of functions, we wish to add to the queue
         <br> 
-        <br> <i>int <b>length</b></i> 
-        <br> <b>[optional]</b> How many times we wish to call upon the callback
+        <br> int <b>length</b> - <i>optional</i>
+        <br> How many times we wish to call upon the callback
       </td>
       <td>Adds one or many functions to the queue. Returns the generated id or an array of them if multiple callbacks where specicified.</td>
     </tr>
@@ -96,7 +97,7 @@ at the same time.
       <td>removeCallback</td>
       <td>Animator</td>
       <td>
-        <i>int|function|object <b>fn</b></i> 
+        int|function|object <b>fn</b>
         <br> The id, function or instance we wish to remove from the queue
       </td>
       <td>Removes a callback from the queue.</td>
@@ -113,7 +114,7 @@ at the same time.
       <td>setQueue</td>
       <td>Animator</td>
       <td>
-        <i>Object <b>queue</b></i> 
+        Object <b>queue</b>
         <br> The queue new queue
       </td>
       <td>Clears the old queue and sets a new one.</td>
@@ -144,7 +145,7 @@ at the same time.
       <td>setElement</td>
       <td>Animator</td>
       <td>
-        <i>Element <b>element</b></i> 
+        Element <b>element</b>
         <br> The element to render in
       </td>
       <td><b>Not required!</b> If specifyed one may optimize the animation.</td>
