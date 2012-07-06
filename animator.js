@@ -184,6 +184,7 @@ var Animator = function()
         delete _queue[ fn ];
         break;
 
+      case 'object':
       case 'function':
         for( var id in _queue )
           if( _queue[ id ] === fn )
