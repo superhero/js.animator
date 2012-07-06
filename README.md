@@ -53,7 +53,7 @@ at the same time.
       <td>getCallback</td>
       <td>function|null</td>
       <td>
-        int | string <b>id</b>
+        int|string <b>id</b>
         <br> The id of the callback we wont returned
       </td>
       <td>Returns the callback by specified id. If id dosn't exists in queue, null is returned</td>
@@ -63,7 +63,7 @@ at the same time.
       <td>setCallback</td>
       <td>Animator</td>
       <td>
-          int | string <b>id</b>
+          int|string <b>id</b>
           <br> The id of the callback
           <br>
           <br> function <b>fn</b>
@@ -97,7 +97,7 @@ at the same time.
       <td>removeCallback</td>
       <td>Animator</td>
       <td>
-        int | function | object <b>fn</b>
+        int|function|object <b>fn</b>
         <br> The id, function or instance we wish to remove from the queue
       </td>
       <td>Removes a callback from the queue.</td>
@@ -136,7 +136,7 @@ at the same time.
 
     <tr>
       <td>getElement</td>
-      <td>Element | undefined</td>
+      <td>Element|undefined</td>
       <td></td>
       <td>Returns the specified element we wish to render on.</td>
     </tr>
@@ -163,31 +163,31 @@ at the same time.
 ## Example of use
 
 Let's star of by defining our rendering loop:
-
+  ```javascript
     var loop = function()
     {
       // do cool stuff
     }
-
+  ```
 Then we need an instance of Animator:
-
+  ```javascript
     var animator = new Animator();
-
+  ```
 Now we wont to add the loop to Animators queue: 
-
+  ```javascript
     var id = animator.addCallback( loop );
-
+  ```
 By adding the loop to the queue we are able to use multiple rendering loops
 within the same callback rutin. Just stack them on by using `addCallback`
 
 Now we start the animation:
-
+  ```javascript
     animator.start();
-
+  ```
 To stop Animator from calling the loop we need to remove it from the queue, we can do this manually or specify how many times the loop should be called upon adding it to the queue.
 
 To do it manually we need to alter the rendering loop:
-
+  ```javascript
     var loop = function( i )
     {
       if( i == expectedLength )
@@ -198,15 +198,15 @@ To do it manually we need to alter the rendering loop:
 
       // do cool stuff
     }
-
+  ```
 Tough, if we alredy know the expected length then we can specify this when we add the loop to the queue:
-
+  ```javascript
     animator.addCallback( loop, expectedLength );
-
+  ```
 By specifying the expected length when we add the loop to the queue we no longer need to alter the animation loop.
 
 Ones we called upon `start` the process is roling, with or without anything in the queue. This may be unnecessary. To stop this process we call `stop`:
-
+  ```javascript
     animator.stop();
-
+  ```
 *I'm working on a solution that wont require the user to call `start` and `stop` manually, unless this behavior is requested.*
