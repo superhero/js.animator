@@ -5,12 +5,12 @@
 */
 
 /**
-* Animator is a class ment to create smother animations when possible
-* 
-* @link http://webstuff.nfshost.com/anim-timing/Overview.html
-* @link https://developer.mozilla.org/en/DOM/window.requestAnimationFrame
-* @link http://dev.chromium.org/developers/design-documents/requestanimationframe-implementation
-*/
+ * Animator is a class ment to create smother animations when possible
+ * 
+ * @link http://webstuff.nfshost.com/anim-timing/Overview.html
+ * @link https://developer.mozilla.org/en/DOM/window.requestAnimationFrame
+ * @link http://dev.chromium.org/developers/design-documents/requestanimationframe-implementation
+ */
 var Animator = function()
 {
   var
@@ -131,13 +131,13 @@ var Animator = function()
   }
 
   /**
-    * Adds one ore many functions to the queue
-    * 
-    * @param fn array|function - The function, or an array of functions, we
-    * wish to add to the queue
-    * @exception 'Only functions are allowed in the queue'
-    * @type int|array
-    */
+   * Adds one ore many functions to the queue
+   * 
+   * @param fn array|function - The function, or an array of functions, we
+   * wish to add to the queue
+   * @exception 'Only functions are allowed in the queue'
+   * @type int|array
+   */
   this.addToQueue = function( fn )
   {
     var id = undefined;
