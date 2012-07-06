@@ -53,7 +53,7 @@ at the same time.
       <td>getCallback</td>
       <td>function|null</td>
       <td>
-        int|string <b>id</b>
+        int | string <b>id</b>
         <br> The id of the callback we wont returned
       </td>
       <td>Returns the callback by specified id. If id dosn't exists in queue, null is returned</td>
@@ -63,13 +63,13 @@ at the same time.
       <td>setCallback</td>
       <td>Animator</td>
       <td>
-          int|string <b>id</b>
+          int | string <b>id</b>
           <br> The id of the callback
           <br>
           <br> function <b>fn</b>
           <br> The callback we wish to set
           <br>
-          <br> int <b>length</b> - <i>optional</i>
+          <br> int <b>length</b> [optional]
           <br> How many times we wish to call upon the callback
         </ul>
       </td>
@@ -87,7 +87,7 @@ at the same time.
         function|array <b>fn</b>
         <br> The function, or an array of functions, we wish to add to the queue
         <br> 
-        <br> int <b>length</b> - <i>optional</i>
+        <br> int <b>length</b> [optional]
         <br> How many times we wish to call upon the callback
       </td>
       <td>Adds one or many functions to the queue. Returns the generated id or an array of them if multiple callbacks where specicified.</td>
@@ -97,7 +97,7 @@ at the same time.
       <td>removeCallback</td>
       <td>Animator</td>
       <td>
-        int|function|object <b>fn</b>
+        int | function | object <b>fn</b>
         <br> The id, function or instance we wish to remove from the queue
       </td>
       <td>Removes a callback from the queue.</td>
@@ -136,7 +136,7 @@ at the same time.
 
     <tr>
       <td>getElement</td>
-      <td>Element|undefined</td>
+      <td>Element | undefined</td>
       <td></td>
       <td>Returns the specified element we wish to render on.</td>
     </tr>
