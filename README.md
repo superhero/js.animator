@@ -15,7 +15,7 @@ at the same time.
 * https://developer.mozilla.org/en/DOM/window.requestAnimationFrame
 * http://dev.chromium.org/developers/design-documents/requestanimationframe-implementation
 
-## Animators interface
+### Animators interface
 
 <table>
   <thead>
@@ -160,53 +160,53 @@ at the same time.
   </tbody>
 </table>
 
-## Example of use
+### Example of how to use
 
 Let's star of by defining our rendering loop:
-  ```javascript
-    var loop = function()
-    {
-      // do cool stuff
-    }
-  ```
+```javascript
+var loop = function()
+{
+  // do cool stuff
+}
+```
 Then we need an instance of Animator:
-  ```javascript
-    var animator = new Animator();
-  ```
+```javascript
+var animator = new Animator();
+```
 Now we wont to add the loop to Animators queue: 
-  ```javascript
-    var id = animator.addCallback( loop );
-  ```
+```javascript
+var id = animator.addCallback( loop );
+```
 By adding the loop to the queue we are able to use multiple rendering loops
 within the same callback rutin. Just stack them on by using `addCallback`
 
 Now we start the animation:
-  ```javascript
-    animator.start();
-  ```
+```javascript
+animator.start();
+```
 To stop Animator from calling the loop we need to remove it from the queue, we can do this manually or specify how many times the loop should be called upon adding it to the queue.
 
 To do it manually we need to alter the rendering loop:
-  ```javascript
-    var loop = function( i )
-    {
-      if( i == expectedLength )
-      {
-        animator.removeCallback( id );
-        return;
-      }
+```javascript
+var loop = function( i )
+{
+  if( i == expectedLength )
+  {
+    animator.removeCallback( id );
+    return;
+  }
 
-      // do cool stuff
-    }
-  ```
+  // do cool stuff
+}
+```
 Tough, if we alredy know the expected length then we can specify this when we add the loop to the queue:
-  ```javascript
-    animator.addCallback( loop, expectedLength );
-  ```
+```javascript
+animator.addCallback( loop, expectedLength );
+```
 By specifying the expected length when we add the loop to the queue we no longer need to alter the animation loop.
 
 Ones we called upon `start` the process is roling, with or without anything in the queue. This may be unnecessary. To stop this process we call `stop`:
-  ```javascript
-    animator.stop();
-  ```
+```javascript
+animator.stop();
+```
 *I'm working on a solution that wont require the user to call `start` and `stop` manually, unless this behavior is requested.*
