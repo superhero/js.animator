@@ -53,19 +53,11 @@ at the same time.
       <td>getCallback</td>
       <td>function|null</td>
       <td>
-        <table>
-          <tr>
-            <td>
-              id
-            </td>
-            <td>
-              int|string
-            </td>
-            <td>
-              The id of the callback we wont returned
-            </td>
-          </tr>
-        </table>
+        <ul>
+          <li>
+            <i>int|string <b>id</b></i> The id of the callback we wont returned
+          </li>
+        </ul>
       </td>
       <td>Returns the callback by specified id. If id dosn't exists in queue, null is returned</td>
     </tr>
@@ -74,47 +66,24 @@ at the same time.
       <td>setCallback</td>
       <td>Animator</td>
       <td>
-        <table>
-          <tr>
-            <td>
-              id
-            </td>
-            <td>
-              int|string
-            </td>
-            <td>
-              The id of the callback
-            </td>
-          </tr>
-          <tr>
-            <td>
-              fn
-            </td>
-            <td>
-              function
-            </td>
-            <td>
-              The callback we wish to set
-            </td>
-          </tr>
+        <ul>
+          <li>
+            <i>int|string <b>id</b></i> The id of the callback
+          </li>
 
-          <tr>
-            <td>
-              length
-            </td>
-            <td>
-              int
-            </td>
-            <td>
-              **[optional]** How many times we wish to call upon the callback
-            </td>
-          </tr>
-        </table>
+          <li>
+            <i>function <b>fn</b></i> The callback we wish to set
+          </li>
+
+          <li>
+            <i>int <b>length</b></i> <b>[optional]</b> How many times we wish to call upon the callback
+          </li>
+        </ul>
       </td>
       <td>
         Sets a callback function with a given id. This can also be used to replace an alredy existing callback.
    
-        ***Warning!** Using this function is not the recomended way to add a function to the queue. Use addCallback for this purpose instead.*
+        <i><b>Warning!</b> Using this function is not the recomended way to add a function to the queue. Use addCallback for this purpose instead.</i>
       </td>
     </tr>
 
@@ -122,31 +91,15 @@ at the same time.
       <td>addCallback</td>
       <td>int|array</td>
       <td>
-        <table>
-          <tr>
-            <td>
-              fn
-            </td>
-            <td>
-              function|array
-            </td>
-            <td>
-              The function, or an array of functions, we wish to add to the queue
-            </td>
-          </tr>
+        <ul>
+          <li>
+            <i>function|array <b>fn</b></i> The function, or an array of functions, we wish to add to the queue
+          </li>
 
-          <tr>
-            <td>
-              length
-            </td>
-            <td>
-              int
-            </td>
-            <td>
-              **[optional]** How many times we wish to call upon the callback
-            </td>
-          </tr>
-        </table>
+          <li>
+            <i>int <b>length</b></i> <b>[optional]</b> How many times we wish to call upon the callback
+          </li>
+        </ul>
       </td>
       <td>Adds one or many functions to the queue. Returns the generated id or an array of them if multiple callbacks where specicified.</td>
     </tr>
@@ -155,19 +108,11 @@ at the same time.
       <td>removeCallback</td>
       <td>Animator</td>
       <td>
-        <table>
-          <tr>
-            <td>
-              fn
-            </td>
-            <td>
-              int|function|object
-            </td>
-            <td>
-              The id, function or instance we wish to remove from the queue.
-            </td>
-          </tr>
-        </table>
+        <ul>
+          <li>
+            <i>int|function|object <b>fn</b></i> The id, function or instance we wish to remove from the queue
+          </li>
+        </ul>
       </td>
       <td>Removes a callback from the queue.</td>
     </tr>
@@ -183,19 +128,11 @@ at the same time.
       <td>setQueue</td>
       <td>Animator</td>
       <td>
-        <table>
-          <tr>
-            <td>
-              queue
-            </td>
-            <td>
-              Object
-            </td>
-            <td>
-              The queue new queue
-            </td>
-          </tr>
-        </table>
+        <ul>
+          <li>
+            <i>Object <b>queue</b></i> The queue new queue
+          </li>
+        </ul>
       </td>
       <td>Clears the old queue and sets a new one.</td>
     </tr>
@@ -225,21 +162,13 @@ at the same time.
       <td>setElement</td>
       <td>Animator</td>
       <td>
-        <table>
-          <tr>
-            <td>
-              element
-            </td>
-            <td>
-              Element
-            </td>
-            <td>
-              The element to render in.
-            </td>
-          </tr>
-        </table>
+        <ul>
+          <li>
+            <i>Element <b>element</b></i> The element to render in
+          </li>
+        <ul>
       </td>
-      <td>**Not required!** If specifyed one may optimize the animation.</td>
+      <td><b>Not required!</b> If specifyed one may optimize the animation.</td>
     </tr>
 
     <tr>
@@ -300,4 +229,4 @@ Ones we called upon `start` the process is roling, with or without anything in t
 
     animator.stop();
 
-*I'm working on a solution that wont require the user to call start and stop manually, unless this behavior is requested.*
+*I'm working on a solution that wont require the user to call `start` and `stop` manually, unless this behavior is requested.*
