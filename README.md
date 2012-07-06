@@ -53,11 +53,7 @@ at the same time.
       <td>getCallback</td>
       <td>function|null</td>
       <td>
-        <ul>
-          <li>
-            <i>int|string <b>id</b></i> The id of the callback we wont returned
-          </li>
-        </ul>
+        int|string <b>id</b></i> <br> The id of the callback we wont returned
       </td>
       <td>Returns the callback by specified id. If id dosn't exists in queue, null is returned</td>
     </tr>
