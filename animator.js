@@ -123,9 +123,9 @@ var Animator = function()
 
   /**
    * Returns the callback by specified id. If id dosn't exists in queue, null
-   * is returned instead
+   * is returned
    * 
-   * @param id int - The id of the callback we wont returning
+   * @param id int - The id of the callback we wont returned
    * @type function|null
    */
   this.getCallback = function( id )
@@ -142,7 +142,7 @@ var Animator = function()
    * Warning! Using this function is not the recomended way to add a function to
    * the queue. Use addCallback for this purpose instead.
    * 
-   * @param id int - The id of the callback
+   * @param id int|string - The id of the callback
    * @param fn function - The callback we wish to set
    * @param length int - [optional] How many times we wish to call upon the
    * callback
@@ -188,9 +188,9 @@ var Animator = function()
   }
 
   /**
-   * Adds one ore many functions to the queue
+   * Adds one or many functions to the queue
    * 
-   * @param fn array|function - The function, or an array of functions, we
+   * @param fn function|array - The function, or an array of functions, we
    * wish to add to the queue
    * @param length int - [optional] How many times we wish to call upon the
    * callback
@@ -255,7 +255,7 @@ var Animator = function()
   }
 
   /**
-   * Removes a function from the queue
+   * Removes a callback from the queue
    * 
    * @param fn int|function|object - The id, function or instance we wish to
    * remove from the queue.
@@ -298,8 +298,8 @@ var Animator = function()
   /**
    * Clears the old queue and sets a new one
    * 
+   * @param queue Object - The queue new queue
    * @exception 'Only functions are allowed in the queue'
-   * @param queue array - The queue new queue
    * @type Animator
    */
   this.setQueue = function( queue )
@@ -348,7 +348,7 @@ var Animator = function()
   /**
    * Not required. If specifyed one may optimize the animation
    *
-   * @param element Element - [optional] The element we render in
+   * @param element Element - [optional] The element to render in
    * @exception 'Unrecognized element'
    * @type Animator
    */
@@ -360,7 +360,7 @@ var Animator = function()
     else if( element instanceof Element )
       _element = element;
 
-    else if( element instanceof jQuery )
+    else if( jQuery && element instanceof jQuery )
       _element = element.get( 0 );
 
     else
@@ -370,7 +370,7 @@ var Animator = function()
   }
 
   /**
-   * Removes the specified Element we render in
+   * Removes any specified element to render in
    * 
    * @type Animator
    */
