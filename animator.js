@@ -13,6 +13,7 @@
  */
 var Animator = function()
 {
+  
   var
 
   // A handler to this instance
@@ -86,7 +87,10 @@ var Animator = function()
         var queue = _animator.getQueue();
 
         for( var key in queue )
-          queue[ key ]();
+          queue[ key ].iterations == null 
+          || queue[ key ].iterated < queue[ key ].iterations
+            ? queue[ key ].callback( queue[ key ].iterated++ )
+            : _animator.removeCallback( key );
       })();
     }
 
@@ -118,16 +122,69 @@ var Animator = function()
   }
 
   /**
-   * Returns if the queue is empty
+   * Returns the callback by specified id. If id dosn't exists in queue, null
+   * is returned instead
    * 
-   * @type boolean
+   * @param id int - The id of the callback we wont returning
+   * @type function|null
    */
-  this.isQueueEmpty = function()
+  this.getCallback = function( id )
   {
-    for( var key in _animator.getQueue() )
-      return false;
+    return _queue[ id ]
+      ? _queue[ id ].callback
+      : null;
+  }
 
-    return true;
+  /**
+   * Sets a callback function with a given id. This can also be used to replace
+   * an alredy existing callback.
+   * 
+   * Warning! Using this function is not the recomended way to add a function to
+   * the queue. Use addCallback for this purpose instead.
+   * 
+   * @param id int - The id of the callback
+   * @param fn function - The callback we wish to set
+   * @param length int - [optional] How many times we wish to call upon the
+   * callback
+   * @exception 'Invalid type'
+   * @type Animator
+   */
+  this.setCallback = function( id, fn, length )
+  {
+    if( typeof fn != 'function' )
+      throw 'Invalid type';
+    
+    length = typeof length == 'number' 
+      ? length 
+      : null;
+    
+    _queue[ id ] = _queue[ id ]
+      ?
+      {
+        callback:
+          fn,
+        
+        iterations:
+          ( length == null
+          ? _queue[ id ].iterations
+          : length ),
+          
+        iterated:
+          _queue[ id ].iterated || 0
+      }
+      :
+      {
+        callback:
+          fn,
+        
+        iterations:
+          length,
+          
+        iterated:
+          0
+      };
+      
+    return this;
   }
 
   /**
@@ -135,19 +192,29 @@ var Animator = function()
    * 
    * @param fn array|function - The function, or an array of functions, we
    * wish to add to the queue
+   * @param length int - [optional] How many times we wish to call upon the
+   * callback
    * @exception 'Only functions are allowed in the queue'
+   * @exception 'Incomplete interface'
    * @type int|array
    */
-  this.addToQueue = function( fn )
+  this.addCallback = function( fn, length )
   {
     var id = undefined;
+    
+    length = length || null;
 
     switch( typeof fn )
     {
       case 'function':
         id = ++_queueId;
-        _queue[ id ] = fn;
-
+        
+        // If the id alredy existes, recurs to generat a new one
+        if( _queue[ id ] )
+          return _animator.addCallback( fn, length );
+        
+        _animator.setCallback( id, fn, length );
+        
         break;
 
       case 'object':
@@ -156,8 +223,27 @@ var Animator = function()
           id = [];
 
           for( var i = 0, l = fn.length; i < l; i++ )
-            id.push( _animator.addToQueue( fn[ i ] ));
-
+            switch( typeof fn )
+            {
+              case 'object':
+                if( !fn[ i ].callback )
+                  throw 'Incomplete interface';
+                
+                fn[ i ].length = 
+                  fn[ i ].length
+                  || fn[ i ].iterations
+                  || null;
+                  
+                id.push(
+                  _animator.addCallback(
+                    fn[ i ].callback,
+                    fn[ i ].length ));
+                break;
+                
+              case 'function':
+                id.push( _animator.addCallback( fn[ i ] ));
+                break;
+            }
           break;
         }
 
@@ -171,16 +257,17 @@ var Animator = function()
   /**
    * Removes a function from the queue
    * 
-   * @param fn function|int - The function or id we wish to remove from the
-   * queue
+   * @param fn int|function|object - The id, function or instance we wish to
+   * remove from the queue.
    * @exception 'Invalid type'
    * @type Animator
    */
-  this.removeFromQueue = function( fn )
+  this.removeCallback = function( fn )
   {
     switch( typeof fn )
     {
       case 'number':
+      case 'string':
         delete _queue[ fn ];
         break;
 
@@ -188,7 +275,7 @@ var Animator = function()
       case 'function':
         for( var id in _queue )
           if( _queue[ id ] === fn )
-            _animator.removeFromQueue( parseInt( id ));
+            _animator.removeCallback( id );
         break;
 
       default:
@@ -233,6 +320,19 @@ var Animator = function()
     _queue = {};
 
     return _animator;
+  }
+
+  /**
+   * Returns if the queue is empty
+   * 
+   * @type boolean
+   */
+  this.isQueueEmpty = function()
+  {
+    for( var key in _animator.getQueue() )
+      return false;
+
+    return true;
   }
 
   /**
