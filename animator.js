@@ -194,15 +194,22 @@ var Animator = function()
    * wish to add to the queue
    * @param length int - [optional] How many times we wish to call upon the
    * callback
+   * @param start boolean - [optional] If true, the callback routine will
+   * automatically start after callbacks are added. Defaults to true.
    * @exception 'Only functions are allowed in the queue'
    * @exception 'Incomplete interface'
    * @type int|array
    */
-  this.addCallback = function( fn, length )
+  this.addCallback = function( fn, length, start )
   {
     var id = undefined;
     
-    length = length || null;
+    length = length == undefined 
+           ? null
+           : length;
+    start  = start  == undefined 
+           ? true 
+           : start;
 
     switch( typeof fn )
     {
@@ -251,11 +258,15 @@ var Animator = function()
         throw 'Only functions are allowed in the queue';
     }
 
+    if( start )
+      _animator.start();
+
     return id;
   }
 
   /**
-   * Removes a callback from the queue
+   * Removes a callback from the queue and stops the routine if there's no more
+   * callbacks in the queue.
    * 
    * @param fn int|function|object - The id, function or instance we wish to
    * remove from the queue.
@@ -281,6 +292,9 @@ var Animator = function()
       default:
         throw 'Invalid type';
     }
+    
+    if( _animator.isQueueEmpty() )
+      _animator.stop();
 
     return _animator;
   }
@@ -354,7 +368,7 @@ var Animator = function()
    */
   this.setElement = function( element )
   {
-    if( element == undefined )
+    if( !element )
       _animator.removeElement();
 
     else if( element instanceof Element )

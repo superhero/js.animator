@@ -56,7 +56,8 @@ at the same time.
         int|string <b>id</b>
         <br> The id of the callback we wont returned
       </td>
-      <td>Returns the callback by specified id. If id dosn't exists in queue, null is returned</td>
+      <td>Returns the callback by specified id. If id dosn't exists in queue,
+      null is returned</td>
     </tr>
 
     <tr>
@@ -74,9 +75,12 @@ at the same time.
         </ul>
       </td>
       <td>
-        Sets a callback function with a given id. This can also be used to replace an alredy existing callback.
+        Sets a callback function with a given id. This can also be used to 
+        replace an alredy existing callback.
         <br> 
-        <br> <i><b>Warning!</b> Using this function is not the recomended way to add a function to the queue. Use addCallback for this purpose instead.</i>
+        <br> <i><b>WARNING!</b> Using this function is not the recomended way
+        to add a function to the queue. Use addCallback for this purpose
+        instead.</i>
       </td>
     </tr>
 
@@ -89,8 +93,15 @@ at the same time.
         <br> 
         <br> int <b>length</b> [optional]
         <br> How many times we wish to call upon the callback
+        <br> 
+        <br> start <b>boolean</b> [optional]
+        <br> If true, the callback routine will automatically start after
+             callbacks are added. Defaults to true
       </td>
-      <td>Adds one or many functions to the queue. Returns the generated id or an array of them if multiple callbacks where specicified.</td>
+      <td>
+        Adds one or many functions to the queue. Returns the generated id or an
+        array of them if multiple callbacks where specicified.
+      </td>
     </tr>
 
     <tr>
@@ -100,7 +111,10 @@ at the same time.
         int|function|object <b>fn</b>
         <br> The id, function or instance we wish to remove from the queue
       </td>
-      <td>Removes a callback from the queue.</td>
+      <td>
+        Removes a callback from the queue and stops the routine if there's no
+        more callbacks in the queue.
+      </td>
     </tr>
 
     <tr>
@@ -148,7 +162,9 @@ at the same time.
         Element <b>element</b>
         <br> The element to render in
       </td>
-      <td><b>Not required!</b> If specifyed one may optimize the animation.</td>
+      <td>
+        <b>Not required!</b> If specifyed one may optimize the animation.
+      </td>
     </tr>
 
     <tr>
@@ -162,7 +178,7 @@ at the same time.
 
 ### Example of how to use
 
-Let's star of by defining our rendering loop:
+Let's start of by defining our rendering loop:
 ```javascript
 var loop = function()
 {
@@ -177,14 +193,23 @@ Now we wont to add the loop to Animators queue:
 ```javascript
 var id = animator.addCallback( loop );
 ```
-By adding the loop to the queue we are able to use multiple rendering loops
-within the same callback rutin. Just stack them on by using `addCallback`
+By adding the loop to a queue we are able to use multiple rendering loops
+within the same callback routin. Just stack them on by using `addCallback`
 
-Now we start the animation:
+By adding a callback to the routine we also start the animation. If we wish to 
+prevent this to manually start the routine at a later point we have to declare 
+this when calling the method. We do this by passing on a false third parameter 
+to the method:
+```javascript
+var id = animator.addCallback( loop, null, false );
+```
+To start the routine manually:
 ```javascript
 animator.start();
 ```
-To stop Animator from calling the loop we need to remove it from the queue, we can do this manually or specify how many times the loop should be called upon adding it to the queue.
+To stop Animator from calling the loop we need to remove it from the queue, we 
+can do this manually or specify how many times the loop should be called upon 
+adding it to the queue.
 
 To do it manually we need to alter the rendering loop:
 ```javascript
@@ -199,14 +224,17 @@ var loop = function( i )
   // do cool stuff
 }
 ```
-Tough, if we alredy know the expected length then we can specify this when we add the loop to the queue:
+Tough, if we alredy know the expected length then we can specify this when we
+add the loop to the queue:
 ```javascript
 animator.addCallback( loop, expectedLength );
 ```
-By specifying the expected length when we add the loop to the queue we no longer need to alter the animation loop.
+By specifying the expected length when we add the loop to the queue we no 
+longer need to alter the animation loop.
 
-Ones we called upon `start` the process is roling, with or without anything in the queue. This may be unnecessary. To stop this process we call `stop`:
+When there's no longer any callbacks in the queue then the routine will
+automatically stop. If you by any reason would like to stop the routine at any
+time then use the method `stop`:
 ```javascript
 animator.stop();
 ```
-*I'm working on a solution that wont require the user to call `start` and `stop` manually, unless this behavior is requested.*
