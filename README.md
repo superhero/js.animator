@@ -233,8 +233,8 @@ By specifying the expected length when we add the loop to the queue we no
 longer need to alter the animation loop.
 
 When there's no longer any callbacks in the queue then the routine will
-automatically stop. If you by any reason would like to stop the routine at any
-time then use the method `stop`:
+automatically stop. If you by any reason would like to stop or pause the
+routine at any time then use the method `stop`:
 ```javascript
 animator.stop();
 ```

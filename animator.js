@@ -184,7 +184,7 @@ var Animator = function()
           0
       };
       
-    return this;
+    return _animator;
   }
 
   /**
@@ -346,7 +346,7 @@ var Animator = function()
     for( var key in _animator.getQueue() )
       return false;
 
-    return true;
+    return _animator;
   }
 
   /**
