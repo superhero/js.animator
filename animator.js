@@ -13,7 +13,6 @@
  */
 var Animator = function()
 {
-  
   var
 
   // A handler to this instance
@@ -394,4 +393,199 @@ var Animator = function()
 
     return _animator;
   }
+}
+
+/**
+ * Lazyloads an instance that can be acceced through a static interface.
+ * 
+ * @static
+ * @return Animator
+ */
+Animator.getInstance = function()
+{
+  if( !Animator._instance )
+    Animator._instance = new Animator();
+  
+  return Animator._instance;
+}
+
+/**
+ * Starts the animation loop, if not already running
+ * 
+ * @static
+ * @type Animator
+ */
+Animator.start = function()
+{
+  return Animator.getInstance().start();
+}
+
+/**
+ * Stops/Pauses the animation loop, if running...
+ * 
+ * @static
+ * @type Animator
+ */
+Animator.stop = function()
+{
+  return Animator.getInstance().stop();
+}
+
+/**
+ * Returns if animation loop is currently running
+ * 
+ * @static
+ * @type boolean
+ */
+Animator.isRunning = function()
+{
+  return Animator.getInstance().isRunning();
+}
+
+/**
+ * Returns the callback by specified id. If id dosn't exists in queue, null
+ * is returned
+ * 
+ * @param id int - The id of the callback we wont returned
+ * @static
+ * @type function|null
+ */
+Animator.getCallback = function( id )
+{
+  return Animator.getInstance().getCallback( id );
+}
+
+/**
+ * Sets a callback function with a given id. This can also be used to replace
+ * an alredy existing callback.
+ * 
+ * Warning! Using this function is not the recomended way to add a function to
+ * the queue. Use addCallback for this purpose instead.
+ * 
+ * @param id int|string - The id of the callback
+ * @param fn function - The callback we wish to set
+ * @param length int - [optional] How many times we wish to call upon the
+ * callback
+ * @exception 'Invalid type'
+ * @static
+ * @type Animator
+ */
+Animator.setCallback = function( id, fn, length )
+{
+  return Animator.getInstance().setCallback( id, fn, length );
+}
+
+/**
+ * Adds one or many functions to the queue
+ * 
+ * @param fn function|array - The function, or an array of functions, we
+ * wish to add to the queue
+ * @param length int - [optional] How many times we wish to call upon the
+ * callback
+ * @param start boolean - [optional] If true, the callback routine will
+ * automatically start after callbacks are added. Defaults to true.
+ * @exception 'Only functions are allowed in the queue'
+ * @exception 'Incomplete interface'
+ * @static
+ * @type int|array
+ */
+Animator.addCallback = function( fn, length, start )
+{
+  return Animator.getInstance().addCallback( fn, length, start );
+}
+
+/**
+ * Removes a callback from the queue and stops the routine if there's no more
+ * callbacks in the queue.
+ * 
+ * @param fn int|function|object - The id, function or instance we wish to
+ * remove from the queue.
+ * @exception 'Invalid type'
+ * @static
+ * @type Animator
+ */
+Animator.removeCallback = function( fn )
+{
+  return Animator.getInstance().removeCallback( fn );
+}
+
+/**
+ * Returns the current queue
+ * 
+ * @static
+ * @type Object
+ */
+Animator.getQueue = function()
+{
+  return Animator.getInstance().getQueue();
+}
+
+/**
+ * Clears the old queue and sets a new one
+ * 
+ * @param queue Object - The queue new queue
+ * @exception 'Only functions are allowed in the queue'
+ * @static
+ * @type Animator
+ */
+Animator.setQueue = function( queue )
+{
+  return Animator.getInstance().setQueue( queue );
+}
+
+/**
+ * Unsets the queue
+ * 
+ * @static
+ * @type Animator
+ */
+Animator.clearQueue = function()
+{
+  return Animator.getInstance().clearQueue();
+}
+
+/**
+ * Returns if the queue is empty
+ * 
+ * @static
+ * @type boolean
+ */
+Animator.isQueueEmpty = function()
+{
+  return Animator.getInstance().isQueueEmpty();
+}
+
+/**
+ * Returns the specified element we wish to render on
+ *
+ * @static
+ * @type Element|undefined
+ */
+Animator.getElement = function()
+{
+  return Animator.getInstance().getElement();
+}
+
+/**
+ * Not required. If specifyed one may optimize the animation
+ *
+ * @param element Element - [optional] The element to render in
+ * @exception 'Unrecognized element'
+ * @static
+ * @type Animator
+ */
+Animator.setElement = function( element )
+{
+  return Animator.getInstance().setElement( element );
+}
+
+/**
+ * Removes any specified element to render in
+ * 
+ * @static
+ * @type Animator
+ */
+Animator.removeElement = function()
+{
+  return Animator.getInstance().removeElement();
 }
