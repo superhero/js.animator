@@ -4,7 +4,7 @@
 
 *Dual licensed under the MIT and GPL version 3 licenses.*
 
-## What is this
+## What's this
 Animator is ment to create smother animations when possible.
 It uses requestAnimationFrame as callback routine. 
 It also has an queue system to prevent multiple simultaneous routines being used
@@ -178,7 +178,7 @@ at the same time.
 
 ### Animators static interface
 
-*OBS!* All the methods that are availible from the instance interface are also
+**OBS!** All the methods that are availible from the instance interface are also
 availible in the static interface.
 
 <table>
@@ -212,8 +212,8 @@ var loop = function()
   // do cool stuff
 }
 ```
-Then we need an instance of Animator:
-**The new interface has a static alternative that doesn't require this step**
+Then we need an instance of Animator:  
+*The new interface has a static alternative that doesn't require this step*
 ```javascript
 var instance = new Animator();
 ```
