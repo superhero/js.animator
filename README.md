@@ -294,7 +294,7 @@ var loop = function( i )
   {
     instance.removeCallback( id );
 
-    // Or more a more simple alternative:
+    // Or a more simple alternative:
     instance.remove( id );
 
     // Static alternative:
