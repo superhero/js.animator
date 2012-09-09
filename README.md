@@ -61,6 +61,13 @@ at the same time.
     </tr>
 
     <tr>
+      <td>get</td>
+      <td colspan="3">
+        <b>Alias for "<i>getCallback</i>" and "<i>getQueue</i>". If param is undefined then the whole queue is returned.</b>
+      </td>
+    </tr>
+
+    <tr>
       <td>setCallback</td>
       <td>Animator</td>
       <td>
@@ -85,6 +92,13 @@ at the same time.
     </tr>
 
     <tr>
+      <td>set</td>
+      <td colspan="3">
+        <b>Alias for "<i>setCallback</i>" and "<i>setQueue</i>".</b>
+      </td>
+    </tr>
+
+    <tr>
       <td>addCallback</td>
       <td>int|array</td>
       <td>
@@ -105,6 +119,13 @@ at the same time.
     </tr>
 
     <tr>
+      <td>add</td>
+      <td colspan="3">
+        <b>Alias for "<i>addCallback</i>"</b>
+      </td>
+    </tr>
+
+    <tr>
       <td>removeCallback</td>
       <td>Animator</td>
       <td>
@@ -114,6 +135,13 @@ at the same time.
       <td>
         Removes a callback from the queue and stops the routine if there's no
         more callbacks in the queue.
+      </td>
+    </tr>
+
+    <tr>
+      <td>remove</td>
+      <td colspan="3">
+        <b>Alias for "<i>removeCallback</i>"</b>
       </td>
     </tr>
 
@@ -139,6 +167,13 @@ at the same time.
       <td>Animator</td>
       <td></td>
       <td>Unsets the queue</td>
+    </tr>
+
+    <tr>
+      <td>clear</td>
+      <td colspan="3">
+        <b>Alias for "<i>clearQueue</i>"</b>
+      </td>
     </tr>
 
     <tr>
@@ -221,8 +256,11 @@ Now we want to add the loop to Animators queue:
 ```javascript
 var id = instance.addCallback( loop );
 
-// Static alternative:
-var id = Animator.addCallback( loop );
+// Or you can use a shorter alternative:
+var id = instance.add( loop );
+
+// And then there is a static alternative:
+var id = Animator.add( loop );
 ```
 By adding the loop to a queue we are able to use multiple rendering loops
 within the same callback routin. Just stack them on by using `addCallback`
@@ -232,10 +270,10 @@ prevent this to manually start the routine at a later point we have to declare
 this when calling the method. We do this by passing on a false third parameter 
 to the method:
 ```javascript
-var id = instance.addCallback( loop, null, false );
+var id = instance.add( loop, null, false );
 
 // Static alternative:
-var id = Animator.addCallback( loop, null, false );
+var id = Animator.add( loop, null, false );
 ```
 To start the routine manually:
 ```javascript
@@ -256,8 +294,11 @@ var loop = function( i )
   {
     instance.removeCallback( id );
 
+    // Or more a more simple alternative:
+    instance.remove( id );
+
     // Static alternative:
-    Animator.removeCallback( id );
+    Animator.remove( id );
     
     return;
   }
@@ -268,10 +309,10 @@ var loop = function( i )
 Tough, if we alredy know the expected length then we can specify this when we
 add the loop to the queue:
 ```javascript
-instance.addCallback( loop, expectedLength );
+instance.add( loop, expectedLength );
 
 // Static alternative:
-Animator.addCallback( loop, expectedLength );
+Animator.add( loop, expectedLength );
 ```
 By specifying the expected length when we add the loop to the queue we no 
 longer need to alter the animation loop.

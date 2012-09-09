@@ -1,7 +1,7 @@
 /*
   Animator - Javascript
   Copyright (C) 2012  Erik Landvall
-  Dual licensed under the MIT and GPL version 3 licenses
+  Dual licensed under the MIT and GPL version 3
 */
 
 /**
@@ -86,8 +86,8 @@ var Animator = function()
         var queue = _animator.getQueue();
 
         for( var key in queue )
-          queue[ key ].iterations == null 
-          || queue[ key ].iterated < queue[ key ].iterations
+          queue[ key ].iterations == null ||
+          queue[ key ].iterated < queue[ key ].iterations
             ? queue[ key ].callback( queue[ key ].iterated++ )
             : _animator.removeCallback( key );
       })();
@@ -132,6 +132,17 @@ var Animator = function()
     return _queue[ id ]
       ? _queue[ id ].callback
       : null;
+  }
+  
+  /**
+   * Alias for getCallback and getQueue. If param is undefined then the whole
+   * queue is returned.
+   */
+  this.get = function( id )
+  {
+    return id 
+      ? _animator.getCallback( id )
+      : _animator.getQueue();
   }
 
   /**
@@ -184,6 +195,16 @@ var Animator = function()
       };
       
     return _animator;
+  }
+  
+  /**
+   * Alias for setCallback and setQueue
+   */
+  this.set = function( id_queue, fn, length )
+  {
+    return fn
+      ? _animator.setCallback( id_queue, fn, length )
+      : _animator.setQueue( id_queue );
   }
 
   /**
@@ -264,6 +285,11 @@ var Animator = function()
   }
 
   /**
+   * Alias for addCallback
+   */
+  this.add = this.addCallback;
+
+  /**
    * Removes a callback from the queue and stops the routine if there's no more
    * callbacks in the queue.
    * 
@@ -287,9 +313,6 @@ var Animator = function()
           if( _queue[ id ] === fn )
             _animator.removeCallback( id );
         break;
-
-      default:
-        throw 'Invalid type';
     }
     
     if( _animator.isQueueEmpty() )
@@ -297,6 +320,11 @@ var Animator = function()
 
     return _animator;
   }
+  
+  /**
+   * Alias for removeCallback
+   */
+  this.remove = this.removeCallback;
 
   /**
    * Returns the current queue
@@ -318,7 +346,7 @@ var Animator = function()
   this.setQueue = function( queue )
   {
     _animator.clearQueue();
-    _animator.addToQueue( queue );
+    _animator.addCallback( queue );
 
     return _animator;
   }
@@ -334,6 +362,11 @@ var Animator = function()
 
     return _animator;
   }
+
+  /**
+   * Alias for clearQueue
+   */
+  this.clear = this.clearQueue;
 
   /**
    * Returns if the queue is empty
@@ -456,6 +489,15 @@ Animator.getCallback = function( id )
 }
 
 /**
+ * Alias for getCallback and getQueue. If param is undefined then the whole
+ * queue is returned.
+ */
+Animator.get = function( id )
+{
+  return Animator.getInstance().get( id );
+}
+
+/**
  * Sets a callback function with a given id. This can also be used to replace
  * an alredy existing callback.
  * 
@@ -473,6 +515,14 @@ Animator.getCallback = function( id )
 Animator.setCallback = function( id, fn, length )
 {
   return Animator.getInstance().setCallback( id, fn, length );
+}
+
+/**
+ * Alias for setCallback and setQueue
+ */
+Animator.set = function( id_queue, fn, length )
+{
+  return Animator.getInstance().set( id_queue, fn, length );
 }
 
 /**
@@ -495,6 +545,11 @@ Animator.addCallback = function( fn, length, start )
 }
 
 /**
+ * Alias for addCallback
+ */
+Animator.add = Animator.addCallback;
+
+/**
  * Removes a callback from the queue and stops the routine if there's no more
  * callbacks in the queue.
  * 
@@ -508,6 +563,11 @@ Animator.removeCallback = function( fn )
 {
   return Animator.getInstance().removeCallback( fn );
 }
+
+/**
+ * Alias for removeCallback
+ */
+Animator.remove = Animator.removeCallback;
 
 /**
  * Returns the current queue
@@ -543,6 +603,11 @@ Animator.clearQueue = function()
 {
   return Animator.getInstance().clearQueue();
 }
+
+/**
+ * Alias for clearQueue
+ */
+Animator.clear = Animator.clearQueue;
 
 /**
  * Returns if the queue is empty
