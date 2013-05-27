@@ -326,3 +326,7 @@ instance.stop();
 // Static alternative:
 Animator.stop();
 ```
+
+## Questions
+If you have any questions you're more then welcome to contact me on twitter:
+[ErikLandvall](https://twitter.com/ErikLandvall)
