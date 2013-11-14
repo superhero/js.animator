@@ -10,10 +10,103 @@ It uses requestAnimationFrame as callback routine.
 It also has an queue system to prevent multiple simultaneous routines being used
 at the same time.
 
+## Questions
+If you have any questions you're more then welcome to contact me on twitter:
+[ErikLandvall](https://twitter.com/ErikLandvall)
+
 ### See
 * http://webstuff.nfshost.com/anim-timing/Overview.html
 * https://developer.mozilla.org/en/DOM/window.requestAnimationFrame
 * http://dev.chromium.org/developers/design-documents/requestanimationframe-implementation
+
+### Example of use
+
+Let's start of by defining our rendering loop:
+```javascript
+var loop = function()
+{
+  // do cool stuff
+}
+```
+Then we need an instance of Animator:  
+*The new interface has a static alternative that doesn't require this step*
+```javascript
+var instance = new Animator();
+```
+Now we want to add the loop to Animators queue: 
+```javascript
+var id = instance.addCallback( loop );
+
+// Or you can use a shorter alternative:
+var id = instance.add( loop );
+
+// And then there is a static alternative:
+var id = Animator.add( loop );
+```
+By adding the loop to a queue we are able to use multiple rendering loops
+within the same callback routin. Just stack them on by using `addCallback`
+
+By adding a callback to the routine we also start the animation. If we wish to 
+prevent this to manually start the routine at a later point we have to declare 
+this when calling the method. We do this by passing on a false third parameter 
+to the method:
+```javascript
+var id = instance.add( loop, null, false );
+
+// Static alternative:
+var id = Animator.add( loop, null, false );
+```
+To start the routine manually:
+```javascript
+instance.start();
+
+// Static alternative:
+Animator.start();
+```
+To stop Animator from calling the loop we need to remove it from the queue, we 
+can do this manually or specify how many times the loop should be called upon 
+adding it to the queue.
+
+To do it manually we need to alter the rendering loop:
+```javascript
+var loop = function( i )
+{
+  if( i == expectedLength )
+  {
+    instance.removeCallback( id );
+
+    // Or a more simple alternative:
+    instance.remove( id );
+
+    // Static alternative:
+    Animator.remove( id );
+    
+    return;
+  }
+
+  // do cool stuff
+}
+```
+Tough, if we alredy know the expected length then we can specify this when we
+add the loop to the queue:
+```javascript
+instance.add( loop, expectedLength );
+
+// Static alternative:
+Animator.add( loop, expectedLength );
+```
+By specifying the expected length when we add the loop to the queue we no 
+longer need to alter the animation loop.
+
+When there's no longer any callbacks in the queue then the routine will
+automatically stop. If you by any reason would like to stop or pause the
+routine at any time then use the method `stop`:
+```javascript
+instance.stop();
+
+// Static alternative:
+Animator.stop();
+```
 
 ### Animators instance interface
 
@@ -237,96 +330,3 @@ availible in the static interface.
     </tr>
   </tbody>
 </table>
-
-### Example of use
-
-Let's start of by defining our rendering loop:
-```javascript
-var loop = function()
-{
-  // do cool stuff
-}
-```
-Then we need an instance of Animator:  
-*The new interface has a static alternative that doesn't require this step*
-```javascript
-var instance = new Animator();
-```
-Now we want to add the loop to Animators queue: 
-```javascript
-var id = instance.addCallback( loop );
-
-// Or you can use a shorter alternative:
-var id = instance.add( loop );
-
-// And then there is a static alternative:
-var id = Animator.add( loop );
-```
-By adding the loop to a queue we are able to use multiple rendering loops
-within the same callback routin. Just stack them on by using `addCallback`
-
-By adding a callback to the routine we also start the animation. If we wish to 
-prevent this to manually start the routine at a later point we have to declare 
-this when calling the method. We do this by passing on a false third parameter 
-to the method:
-```javascript
-var id = instance.add( loop, null, false );
-
-// Static alternative:
-var id = Animator.add( loop, null, false );
-```
-To start the routine manually:
-```javascript
-instance.start();
-
-// Static alternative:
-Animator.start();
-```
-To stop Animator from calling the loop we need to remove it from the queue, we 
-can do this manually or specify how many times the loop should be called upon 
-adding it to the queue.
-
-To do it manually we need to alter the rendering loop:
-```javascript
-var loop = function( i )
-{
-  if( i == expectedLength )
-  {
-    instance.removeCallback( id );
-
-    // Or a more simple alternative:
-    instance.remove( id );
-
-    // Static alternative:
-    Animator.remove( id );
-    
-    return;
-  }
-
-  // do cool stuff
-}
-```
-Tough, if we alredy know the expected length then we can specify this when we
-add the loop to the queue:
-```javascript
-instance.add( loop, expectedLength );
-
-// Static alternative:
-Animator.add( loop, expectedLength );
-```
-By specifying the expected length when we add the loop to the queue we no 
-longer need to alter the animation loop.
-
-When there's no longer any callbacks in the queue then the routine will
-automatically stop. If you by any reason would like to stop or pause the
-routine at any time then use the method `stop`:
-```javascript
-instance.stop();
-
-// Static alternative:
-Animator.stop();
-```
-
-## Questions
-If you have any questions you're more then welcome to contact me on twitter:
-[ErikLandvall](https://twitter.com/ErikLandvall)
