@@ -12,7 +12,7 @@ at the same time.
 
 ## Questions
 If you have any questions you're more then welcome to contact me on twitter:
-[ErikLandvall](https://twitter.com/ErikLandvall)
+[ErikLandvall](https://twitter.com/ErikLandvall), or just add an issue here on github and I will answer as fast as I can.
 
 ### See
 * http://webstuff.nfshost.com/anim-timing/Overview.html
