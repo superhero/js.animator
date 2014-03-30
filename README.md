@@ -17,7 +17,6 @@ If you have any questions you're more then welcome to contact me on twitter:
 ### See
 * http://webstuff.nfshost.com/anim-timing/Overview.html
 * https://developer.mozilla.org/en/DOM/window.requestAnimationFrame
-* http://dev.chromium.org/developers/design-documents/requestanimationframe-implementation
 
 ### Example of use
 
