@@ -126,21 +126,18 @@ Animator.stop();
       <td></td>
       <td>Starts the animation loop, if not already running.</td>
     </tr>
-
     <tr>
       <td>stop</td>
       <td>Animator</td>
       <td></td>
       <td>Stops/Pauses the animation loop, if running.</td>
     </tr>
-
     <tr>
       <td>isRunning</td>
       <td>boolean</td>
       <td></td>
       <td>Returns if animation loop is currently running.</td>
     </tr>
-
     <tr>
       <td>getCallback</td>
       <td>function|null</td>
@@ -151,14 +148,12 @@ Animator.stop();
       <td>Returns the callback by specified id. If id dosn't exists in queue,
       null is returned</td>
     </tr>
-
     <tr>
       <td>get</td>
       <td colspan="3">
         <b>Alias for "<i>getCallback</i>" and "<i>getQueue</i>". If param is undefined then the whole queue is returned.</b>
       </td>
     </tr>
-
     <tr>
       <td>setCallback</td>
       <td>Animator</td>
@@ -182,14 +177,12 @@ Animator.stop();
         instead.</i>
       </td>
     </tr>
-
     <tr>
       <td>set</td>
       <td colspan="3">
         <b>Alias for "<i>setCallback</i>" and "<i>setQueue</i>".</b>
       </td>
     </tr>
-
     <tr>
       <td>addCallback</td>
       <td>int|array</td>
@@ -209,14 +202,12 @@ Animator.stop();
         array of them if multiple callbacks where specicified.
       </td>
     </tr>
-
     <tr>
       <td>add</td>
       <td colspan="3">
         <b>Alias for "<i>addCallback</i>"</b>
       </td>
     </tr>
-
     <tr>
       <td>removeCallback</td>
       <td>Animator</td>
@@ -229,21 +220,18 @@ Animator.stop();
         more callbacks in the queue.
       </td>
     </tr>
-
     <tr>
       <td>remove</td>
       <td colspan="3">
         <b>Alias for "<i>removeCallback</i>"</b>
       </td>
     </tr>
-
     <tr>
       <td>getQueue</td>
       <td>Object</td>
       <td></td>
       <td>Returns the current queue</td>
     </tr>
-
     <tr>
       <td>setQueue</td>
       <td>Animator</td>
@@ -253,35 +241,30 @@ Animator.stop();
       </td>
       <td>Clears the old queue and sets a new one.</td>
     </tr>
-
     <tr>
       <td>clearQueue</td>
       <td>Animator</td>
       <td></td>
       <td>Unsets the queue</td>
     </tr>
-
     <tr>
       <td>clear</td>
       <td colspan="3">
         <b>Alias for "<i>clearQueue</i>"</b>
       </td>
     </tr>
-
     <tr>
       <td>isQueueEmpty</td>
       <td>boolean</td>
       <td></td>
       <td>Returns if the queue is empty.</td>
     </tr>
-
     <tr>
       <td>getElement</td>
       <td>Element|undefined</td>
       <td></td>
       <td>Returns the specified element we wish to render on.</td>
     </tr>
-
     <tr>
       <td>setElement</td>
       <td>Animator</td>
@@ -293,7 +276,6 @@ Animator.stop();
         <b>Not required!</b> If specifyed one may optimize the animation.
       </td>
     </tr>
-
     <tr>
       <td>removeElement</td>
       <td>Animator</td>
@@ -324,7 +306,7 @@ availible in the static interface.
       <td>Animator</td>
       <td></td>
       <td>
-        Lazyloads an instance that can be acceced through a static interface.
+        Lazyloads an instance that can be accessed through a static interface.
       </td>
     </tr>
   </tbody>
